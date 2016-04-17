@@ -1,0 +1,29 @@
+{
+  "name": "golumbus",
+  "version": "0.0.2",
+  "description": "Golumbus is a CLI helping you to remember important locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "goto",
+    "golumbus",
+    "save",
+    "locations",
+    "paths",
+    "directories"
+  ],
+  "author": "Jonas Verhoelen",
+  "license": "MIT",
+  "bin": {
+    "go": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.9.0",
+    "jsonfile": "^2.3.0"
+  }
+}
