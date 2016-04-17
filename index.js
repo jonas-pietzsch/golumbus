@@ -12,7 +12,7 @@ var configFile = './golumbus.json';
 var configFormat = {spaces: 2};
 var config = jsonfile.readFileSync(configFile);
 
-program.version('0.0.2');
+program.version('0.0.3');
 
 program
     .command('list')
