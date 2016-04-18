@@ -1,6 +1,7 @@
 #!/usr/bin/env node --harmony
 
 // Dependencies
+require('shelljs/global');
 var co = require('co');
 var prompt = require('co-prompt');
 var program = require('commander');
@@ -8,11 +9,13 @@ var chalk = require('chalk');
 var colors = require('colors');
 var jsonfile = require('jsonfile');
 
-var configFile = './golumbus.json';
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+var configFile =  appDir + '/golumbus.json';
 var configFormat = {spaces: 2};
 var config = jsonfile.readFileSync(configFile);
 
-program.version('0.0.3');
+program.version('0.0.4');
 
 program
     .command('list')
@@ -30,7 +33,6 @@ program
     .description('Sail to the location known under this name without your sextant')
     .action(function (name) {
         console.log(config.entries[name].path);
-        process.chdir(config.entries[name].path);
     });
 
 program
