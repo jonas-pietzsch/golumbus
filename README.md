@@ -11,21 +11,13 @@ Golumbus is meant to be a command accessible via `go`, so just install it using
 
 ## How to use?
 
-**Add a location:**
-```go add 'location name'```
-You will be prompted for a description of this location.
+**Add a location:** `go add 'location name'` (you will be prompted for a description)
 
-**List/search your locations:**
-```go list [query]```
-All your locations will be listed, one per row. A query string can be appended when needed, it will be applied on name and description of the locations.
+**List/search your locations:** `go list [query]` (query is optional and searches names and descriptions)
 
-**Remove a location:**
-```go rm 'location name'```
-The location will be removed.
+**Remove a location:** `go rm 'location name'`
 
-**Get a location:**
-```go 'location name'```
-Golumbus will return the path to the location on stdout.
+**Get a location:** `go 'location name'` (path to the location returned on stdout)
 
 ## Setup *project jumping*
 
