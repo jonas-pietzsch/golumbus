@@ -11,19 +11,23 @@ Golumbus is meant to be a command accessible via `go`, so just install it using
 
 ## How to use?
 
-**Add a location:** `go add 'location name'`
+**Add a location:**
+```go add 'location name'```
 You will be prompted for a description of this location.
 
-**List your locations:** `go list`
-All your locations will be listed, one per row.
+**List/search your locations:**
+```go list [query]```
+All your locations will be listed, one per row. A query string can be appended when needed, it will be applied on name and description of the locations.
 
-**Remove a location:** `go rm 'location name'`
+**Remove a location:**
+```go rm 'location name'```
 The location will be removed.
 
-**Get a location:** `go 'location name'`
+**Get a location:**
+```go 'location name'```
 Golumbus will return the path to the location on stdout.
 
-## Solutions to *really* jump to projects
+## Setup *project jumping*
 
 Scripts have the disadvantage to not really be able to alter parent processes, like the command line you are executing golumbus from.
 So unfortunately golumbus has no mechanism to jump to a path *without help*. You probably will need to build a small bridge between Node and the command line (of your choice) which evaluates `go 'name'` and `cd` to it.
@@ -44,5 +48,5 @@ The following represents the config directory of fish. You can maintain a functi
 
 ## Ideas? Fixes?
 
-Have a look at [Golumbus' GitHub repository](http://github.com/JonasPriest/golumbus), please.
+Have a look at [Golumbus' GitHub repository](http://github.com/JonasPriest/golumbus), please. You are happy to make forks, pull-requests or issues. Especially regarding the `cd` problem on a scripts parent process I appreciate your comments and bridges for the command line of your choice.
 Leave your scurvy at home, sailor.
