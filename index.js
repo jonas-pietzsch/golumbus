@@ -48,9 +48,13 @@ program
     .arguments('<name>')
     .description('Sail to the location known under this name without your sextant')
     .action(function (name) {
-        console.log(config.entries[name].path.rainbow);
-        config.entries[name].usages++;
-        jsonfile.writeFileSync(configFile, config, configFormat);
+        if (config.entries[name] != undefined) {
+            console.log(config.entries[name].path);
+            config.entries[name].usages++;
+            jsonfile.writeFileSync(configFile, config, configFormat);
+        } else {
+            console.log(process.cwd());
+        }
     });
 
 program
