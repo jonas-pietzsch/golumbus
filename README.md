@@ -4,7 +4,7 @@ It's a small command line utility to bookmark locations on your machines.
 You can add (and overwrite), list, get and remove bookmark locations.
 So, make Golumbus your smart navigator to help you sailing between projects, quickly.
 
-![alt text][logo]
+![Golumbus demo](https://i.imgsafe.org/ba9acd5.gif)
 
 ## Install it
 
@@ -48,6 +48,3 @@ The following represents the config directory of fish. You can maintain a functi
 
 Have a look at [Golumbus' GitHub repository](http://github.com/JonasPriest/golumbus), please. You are happy to make forks, pull-requests or issues. Especially regarding the `cd` problem on a scripts parent process I appreciate your comments and bridges for the command line of your choice.
 Leave your scurvy at home, sailor.
-
-
-[demo]: https://i.imgsafe.org/ba9acd5.gif
