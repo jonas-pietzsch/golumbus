@@ -15,7 +15,7 @@ var configFile =  appDir + '/golumbus.json';
 var configFormat = {spaces: 2};
 var config = jsonfile.readFileSync(configFile);
 
-program.version('0.0.4');
+program.version('0.0.5');
 
 program
     .command('list [query]')

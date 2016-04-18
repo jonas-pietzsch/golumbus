@@ -8,8 +8,7 @@ So, make Golumbus your smart navigator to help you sailing between projects, qui
 
 ## Install it
 
-Golumbus is meant to be a command accessible via `go`, so just install it using
-`npm install -g golumbus`
+Golumbus is meant to be a command accessible via `go` and `goto`, so just install it using `npm install -g golumbus`.
 
 ## How to use?
 
