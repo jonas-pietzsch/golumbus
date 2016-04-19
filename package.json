@@ -8,7 +8,7 @@
     "url": "git://github.com/JonasPriest/golumbus.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/_mocha"
+    "test": "istanbul test _mocha"
   },
   "keywords": [
     "goto",
@@ -32,6 +32,8 @@
     "jsonfile": "^2.3.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5"
   }
 }
