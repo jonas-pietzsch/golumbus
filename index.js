@@ -1,68 +1,54 @@
 #!/usr/bin/env node --harmony
 
-// Dependencies
-require('shelljs/global');
+// dependencies
 var co = require('co');
 var prompt = require('co-prompt');
 var columnify = require('columnify');
 var program = require('commander');
-var chalk = require('chalk');
 var colors = require('colors');
-var jsonfile = require('jsonfile');
 
-var appDir = require('path').dirname(require.main.filename);
-var configFile =  appDir + '/golumbus.json';
-var configFormat = {spaces: 2};
-var config = jsonfile.readFileSync(configFile);
+var utils = require('./lib/utils');
+var entries = require('./lib/entries');
+entries.loadFrom(utils.getConfigFilePath());
 
+// version
 program.version('0.0.5');
 
+// command definitions
 program
     .command('list [query]')
     .description('Lists all known locations')
     .action(function(query) {
         console.log(('All known locations' + (query ? ' containing "' + query + '"' : '') + ':\n').blue.bold);
-        var entries = [];
 
-        for (var name in config.entries) {
-            var rawEntry = config.entries[name];
-            if ( !query || (name.indexOf(query) > -1 || rawEntry.desc.indexOf(query) > -1) ) {
-                entries.push({
-                    name: name,
-                    description: rawEntry.desc,
-                    path: rawEntry.path,
-                    usages: rawEntry.usages
-                });
-            }
-        }
-
-        entries.sort(function(a, b){
-            return b.usages - a.usages
-        });
-        console.log(columnify(entries).bold);
+        var validEntries = entries.allContaining(query);
+        console.log(columnify(validEntries).bold);
     });
-
-
 
 program
     .arguments('<name>')
-    .description('Sail to the location known under this name without your sextant')
+    .description('Output the location known under this name or the cwd if the location is unknown')
     .action(function (name) {
-        console.log(config.entries[name].path.rainbow);
-        config.entries[name].usages++;
-        jsonfile.writeFileSync(configFile, config, configFormat);
+        if (entries.isKnown(name)) {
+            var entry = entries.get(name);
+            console.log(entry.path);
+
+            entry.usages++;
+            entries.save();
+        } else {
+            console.log(process.cwd());
+        }
     });
 
 program
     .command('rm <name>')
     .description('Remove the known location under this name')
     .action(function(name) {
-        if (config.entries[name] == undefined) {
+        if (!entries.isKnown(name)) {
             console.log(('No location is known under the name ' + name + '.').red);
         } else {
-            var prevLocation = config.entries[name];
-            delete config.entries[name];
-            jsonfile.writeFileSync(configFile, config, configFormat);
+            var prevLocation = entries.get(name);
+            entries.remove(name);
             console.log(('Location ' + name + ' which was pointing to ' + prevLocation.path + ' was successfully removed.').green);
         }
     });
@@ -71,15 +57,28 @@ program
     .command('forget')
     .description('Forget usage statistics of known locations')
     .action(function () {
-        var accesses = 0;
-
-        for (var name in config.entries) {
-            accesses += config.entries[name].usages;
-            config.entries[name].usages = 0;
-        }
-
-        jsonfile.writeFileSync(configFile, config, configFormat);
+        entries.resetUsages();
         console.log(('Successfully resetted all usage statistics (' + accesses + ' accesses in total)!').green);
+    });
+
+program
+    .command('edit <name>')
+    .description('Edit the location known under this name')
+    .action(function (name) {
+        co(function *() {
+
+            if (entries.isKnown(name)) {
+                var entry = entries.get(name);
+                console.log(('The location "' + name + '" was found and leads to ' + entry.path + '. The current description is:\n' + entry.desc).green);
+
+                var newDescription = yield prompt('\nNew description: ');
+                entries.edit(name, newDescription);
+            } else {
+                console.log(('I don\'t remember a location named "' + name + '"...').yellow);
+            }
+
+            process.exit(0);
+        });
     });
 
 program
@@ -87,10 +86,11 @@ program
     .description('Add the currently visited location as known one under a name')
     .action(function(name) {
         co(function *() {
-            if (config.entries[name] != undefined) {
-                var knownPath = config.entries[name].path;
+            if (entries.isKnown(name)) {
+                var knownPath = entries.get(name).path;
                 console.log(('Warning! The name ' + name + ' already knows the way to ' + knownPath).yellow);
                 var overwrite = yield prompt('Overwrite? (y/n): ');
+
                 if (overwrite == 'n') {
                     console.log(('Okay, going to remember ' + knownPath + ' under the name ' + name + ', Sir!').green);
                     process.exit(0);
@@ -106,8 +106,7 @@ program
                 usages: 0
             };
 
-            config.entries[name] = newLocation;
-            jsonfile.writeFileSync(configFile, config, configFormat);
+            entries.add(name, newLocation);
             console.log(('Current path (' + newLocation.path + ')' + ' is now known under the name ' + name + '.\nDescription: ' + desc).green);
             process.exit(0);
         });
