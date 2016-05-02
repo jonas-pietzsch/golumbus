@@ -9,10 +9,11 @@ var colors = require('colors');
 
 var utils = require('./lib/utils');
 var entries = require('./lib/entries');
+var paths = require('./lib/paths');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
-program.version('0.0.5');
+program.version('0.0.6');
 
 // command definitions
 program
@@ -26,12 +27,13 @@ program
     });
 
 program
-    .arguments('<name>')
+    .arguments('<name> [manipulator]')
     .description('Output the location known under this name or the cwd if the location is unknown')
-    .action(function (name) {
+    .action(function (name, manipulator) {
         if (entries.isKnown(name)) {
             var entry = entries.get(name);
-            console.log(entry.path);
+
+            console.log(paths.manipulate(entry.path, manipulator));
 
             entry.usages++;
             entries.save();

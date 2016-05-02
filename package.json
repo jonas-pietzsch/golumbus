@@ -1,6 +1,6 @@
 {
   "name": "golumbus",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Golumbus is a CLI helping you to remember important locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
   "main": "index.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git://github.com/JonasPriest/golumbus.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/_mocha"
+    "test": "istanbul test _mocha"
   },
   "keywords": [
     "goto",
@@ -32,6 +32,8 @@
     "jsonfile": "^2.3.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5"
   }
 }

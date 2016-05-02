@@ -94,4 +94,16 @@ describe('Utils tests', function () {
         });
     });
 
+    describe('Testing of path manipulations', function () {
+        it('Should be concatenated properly', function () {
+            var path = '/home/user/work/company/';
+            var manipulation = '../../back';
+
+            var expectation = path + manipulation;
+            var result = utils.manipulatePath(path, manipulation);
+            assert.equal(expectation, result, 'that manually built string is correct');
+        });
+
+    });
+
 });
