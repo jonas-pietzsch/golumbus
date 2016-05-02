@@ -12,13 +12,16 @@ Golumbus is meant to be a command accessible via `go` and `goto`, so just instal
 
 ## How to use?
 
-**Add a location:** `go add 'location name'` (you will be prompted for a description)
+**Add a location:** `go add location-name` (you will be prompted for a description)
 
 **List/search your locations:** `go list [query]` (query is optional and searches names and descriptions)
 
-**Remove a location:** `go rm 'location name'`
+**Remove a location:** `go rm location-name`
 
-**Get a location:** `go 'location name'` (path to the location returned on stdout)
+**Get a location:** `go location-name [manipulator]` (path to the location returned on stdout)
+The manipulator is something like `../tests/../../somewhere` and will be manipulating the location-path directly.
+
+**Jump to a location:** ´goto location-name [manipulator]´ (jump to the location in your shell - *please read the next section for setup*)
 
 ## Setting up project jumping (cd)
 
