@@ -21,7 +21,7 @@ Golumbus is meant to be a command accessible via `go` and `goto`, so just instal
 **Get a location:** `go location-name [manipulator]` (path to the location returned on stdout)
 The manipulator is something like `../tests/../../somewhere` and will be manipulating the location-path directly.
 
-**Jump to a location:** ´goto location-name [manipulator]´ (jump to the location in your shell - *please read the next section for setup*)
+**Jump to a location:** `goto location-name [manipulator]` (jump to the location in your shell - *please read the next section for setup*)
 
 ## Setting up project jumping (cd)
 
