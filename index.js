@@ -9,7 +9,6 @@ var colors = require('colors');
 
 var utils = require('./lib/utils');
 var entries = require('./lib/entries');
-var paths = require('./lib/paths');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
@@ -33,7 +32,7 @@ program
         if (entries.isKnown(name)) {
             var entry = entries.get(name);
 
-            console.log(paths.manipulate(entry.path, manipulator));
+            console.log(utils.manipulatePath(entry.path, manipulator));
 
             entry.usages++;
             entries.save();
