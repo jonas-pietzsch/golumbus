@@ -19,7 +19,11 @@ program
     .command('list [query]')
     .description('Lists all known locations')
     .action(function(query) {
-        console.log(('All known locations' + (query ? ' containing "' + query + '"' : '') + ':\n').blue.bold);
+        if (query) {
+            console.log(('All known locations you could have searched for like "' + query + '":\n').bold);
+        } else {
+            console.log('All locations:\n'.bold);
+        }
 
         var validEntries = entries.search(query);
         console.log(columnify(validEntries).bold);
