@@ -12,7 +12,7 @@ var entries = require('./lib/entries');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
-program.version('0.0.6');
+program.version('0.0.8');
 
 // command definitions
 program
