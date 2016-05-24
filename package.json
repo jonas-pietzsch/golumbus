@@ -21,7 +21,8 @@
   "author": "Jonas Verhoelen",
   "license": "MIT",
   "bin": {
-    "go": "./index.js"
+    "go": "./index.js",
+    "gol": "./index.js"
   },
   "dependencies": {
     "co": "^4.6.0",
