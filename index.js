@@ -21,7 +21,7 @@ program
     .action(function(query) {
         console.log(('All known locations' + (query ? ' containing "' + query + '"' : '') + ':\n').blue.bold);
 
-        var validEntries = entries.allContaining(query);
+        var validEntries = entries.search(query);
         console.log(columnify(validEntries).bold);
     });
 
