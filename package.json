@@ -1,6 +1,6 @@
 {
   "name": "golumbus",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Golumbus is a CLI helping you to remember important locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
   "main": "index.js",
   "repository": {
@@ -21,7 +21,8 @@
   "author": "Jonas Verhoelen",
   "license": "MIT",
   "bin": {
-    "go": "./index.js"
+    "go": "./index.js",
+    "gol": "./index.js"
   },
   "dependencies": {
     "co": "^4.6.0",
@@ -29,6 +30,7 @@
     "colors": "^1.1.2",
     "columnify": "^1.5.4",
     "commander": "^2.9.0",
+    "fuzzy.js": "^0.1.0",
     "jsonfile": "^2.3.0"
   },
   "devDependencies": {

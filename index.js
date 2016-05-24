@@ -12,16 +12,20 @@ var entries = require('./lib/entries');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
-program.version('0.0.6');
+program.version('0.0.8');
 
 // command definitions
 program
     .command('list [query]')
     .description('Lists all known locations')
     .action(function(query) {
-        console.log(('All known locations' + (query ? ' containing "' + query + '"' : '') + ':\n').blue.bold);
+        if (query) {
+            console.log(('All known locations you could have searched for like "' + query + '":\n').bold);
+        } else {
+            console.log('All locations:\n'.bold);
+        }
 
-        var validEntries = entries.allContaining(query);
+        var validEntries = entries.search(query);
         console.log(columnify(validEntries).bold);
     });
 
