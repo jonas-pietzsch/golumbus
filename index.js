@@ -9,6 +9,8 @@ var colors = require('colors');
 
 var utils = require('./lib/utils');
 var entries = require('./lib/entries');
+var installer = require('./lib/installer');
+
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
@@ -63,6 +65,13 @@ program
     .description('Forget usage statistics of known locations')
     .action(function () {
         console.log(('Successfully resetted all usage statistics (' + entries.resetUsages() + ' accesses in total)!').green);
+    });
+
+program
+    .command('install')
+    .description('Detects your shell and installs the goto command for it')
+    .action(function () {
+        console.log(installer.installGoto().green);
     });
 
 program
