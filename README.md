@@ -8,46 +8,41 @@ So, make Golumbus your smart navigator to help you sailing between projects, qui
 
 ## Install it
 
-Golumbus is meant to be a command accessible via `go` and `goto`, so just install it using `npm install -g golumbus`.
+Golumbus is meant to be a command accessible via `go` (or `gol` to escape conflicts with Go Lang) and `goto`, so just install it using `npm install -g golumbus`.
 
-## How to use?
+## Use it
 
-**Add a location:** `go add location-name` (you will be prompted for a description)
+**Add a location:** `go add <name>`
 
-**List/search your locations:** `go list [query]` (query is optional and searches names and descriptions)
+**List/search your locations:** `go list [query]` (optional search query)
 
-**Remove a location:** `go rm location-name`
+**Remove a location:** `go rm <name>`
 
-**Get a location:** `go location-name [manipulator]` (path to the location returned on stdout)
+**Get a location:** `go <name> [manipulator]` (path to the location returned on stdout)
 The manipulator is something like `../tests/../../somewhere` and will be manipulating the location-path directly.
 
-**Jump to a location:** `goto location-name [manipulator]` (jump to the location in your shell - *please read the next section for setup*)
-(Please do only use the `goto` command for location jumping, other will fail)
+**Jump to a location:** `goto <name> [manipulator]` (jump to the location in your shell - *please read the next section for setup*)
 
-## Setting up project jumping (cd)
+## Setting up project jumping
 
 Scripts have the disadvantage to not really be able to alter parent processes, like the command line you are executing golumbus from.
-So unfortunately golumbus has no mechanism to jump to a path *without help*. You probably will need to build a small bridge between Node and the command line (of your choice) which evaluates `go 'name'` and `cd` to it.
+So unfortunately golumbus has no mechanism to jump to a path *without help*. You probably will need to *build a small bridge between Node and the shell*.
 
-#### With bash
+#### Bash
 
 Simply add a script named `goto` to your path that does something like [that](goto.sh).
 
-#### fish shell (OS X)
+#### Zsh
 
-The following represents the config directory of fish. You can maintain a functions directory there and store your custom fish commands defined by functions. To build the bridge in fish, just add my example [goto.fish file](goto.fish) there.
+Add the [Zsh goto script](goto.zsh) to your `~/.zshrc`.
 
-```
-~/.config/fish
-├── config.fish
-├── fish_history
-└── functions
-    ├── [all your custom fish function scripts]
-    └── goto.fish
-```
+#### Fish Shell
+
+Copy [goto.fish](goto.fish) to your Fish Shell function directory which is `~/.config/fish/functions`.
 
 
-## Ideas? Fixes?
+## Contribution
 
-Have a look at [Golumbus' GitHub repository](http://github.com/JonasPriest/golumbus), please. You are happy to make forks, pull-requests or issues. Especially regarding the `cd` problem on a scripts parent process I appreciate your comments and bridges for the command line of your choice.
-Leave your scurvy at home, sailor.
+Have a look at [Golumbus' GitHub repository](http://github.com/JonasPriest/golumbus), please. I'm happy about forks, pull-requests or issues.
+
+But: Leave your scurvy at home, sailor.

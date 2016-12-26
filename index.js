@@ -12,7 +12,7 @@ var entries = require('./lib/entries');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
-program.version('0.0.8');
+program.version('0.0.10');
 
 // command definitions
 program
@@ -62,8 +62,7 @@ program
     .command('forget')
     .description('Forget usage statistics of known locations')
     .action(function () {
-        entries.resetUsages();
-        console.log(('Successfully resetted all usage statistics (' + accesses + ' accesses in total)!').green);
+        console.log(('Successfully resetted all usage statistics (' + entries.resetUsages() + ' accesses in total)!').green);
     });
 
 program
