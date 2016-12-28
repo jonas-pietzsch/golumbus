@@ -30,6 +30,7 @@
     "colors": "^1.1.2",
     "columnify": "^1.5.4",
     "commander": "^2.9.0",
+    "fs-extended": "^0.2.1",
     "fuzzy.js": "^0.1.0",
     "jsonfile": "^2.3.0"
   },
