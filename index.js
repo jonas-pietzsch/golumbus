@@ -68,10 +68,10 @@ program
     });
 
 program
-    .command('install')
+    .command('install [shell]')
     .description('Detects your shell and installs the goto command for it')
-    .action(function () {
-        console.log(installer.installGoto().green);
+    .action(function (shell) {
+        console.log(installer.installGoto(shell).green);
     });
 
 program
