@@ -10,6 +10,8 @@ So, make Golumbus your smart navigator to help you sailing between projects, qui
 
 Golumbus is meant to be a command accessible via `go` (or `gol` to escape conflicts with Go Lang) and `goto`, so just install it using `npm install -g golumbus`.
 
+*Before first usage, execute `go install` to install the `goto` command for the shell you are using.* Currently Fish and Zsh are supported for auto installation. Bash can be installed manually. For more information, [have a look at the Wiki](https://github.com/jverhoelen/golumbus/wiki/Install-the-goto-command).
+
 ## Use it
 
 **Add a location:** `go add <name>`
@@ -21,25 +23,9 @@ Golumbus is meant to be a command accessible via `go` (or `gol` to escape confli
 **Get a location:** `go <name> [manipulator]` (path to the location returned on stdout)
 The manipulator is something like `../tests/../../somewhere` and will be manipulating the location-path directly.
 
-**Jump to a location:** `goto <name> [manipulator]` (jump to the location in your shell - *please read the next section for setup*)
+**Jump to a location:** `goto <name> [manipulator]` (you must have installed the goto command therefor)
 
-## Setting up project jumping
-
-Scripts have the disadvantage to not really be able to alter parent processes, like the command line you are executing golumbus from.
-So unfortunately golumbus has no mechanism to jump to a path *without help*. You probably will need to *build a small bridge between Node and the shell*.
-
-#### Bash
-
-Simply add a script named `goto` to your path that does something like [that](goto.sh).
-
-#### Zsh
-
-Add the [Zsh goto script](goto.zsh) to your `~/.zshrc`.
-
-#### Fish Shell
-
-Copy [goto.fish](goto.fish) to your Fish Shell function directory which is `~/.config/fish/functions`.
-
+**Install goto command:** `go install [shell]` (shell is optional and being auto detected, when empty)
 
 ## Contribution
 
