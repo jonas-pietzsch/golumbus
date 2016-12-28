@@ -14,7 +14,7 @@ var installer = require('./lib/installer');
 entries.loadFrom(utils.getConfigFilePath());
 
 // version
-program.version('0.0.10');
+program.version('0.1.0');
 
 // command definitions
 program
