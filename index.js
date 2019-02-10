@@ -56,7 +56,15 @@ program
     .command('forget')
     .description('Forget usage statistics of known locations')
     .action(() => {
-        console.log(('Successfully resetted all usage statistics (' + entries.resetUsages() + ' accesses in total)!').green)
+        console.log(('Successfully resetted all usage statistics (' + entries.resetUsages() + ' accesses in total).').green)
+    })
+
+program
+    .command('purge')
+    .description('Delete all bookmarked locations where the directory is no more existing')
+    .action(() => {
+        const purgedCount = entries.purgeNotExisting()
+        console.log(('Successfully deleted ' + purgedCount + ' locations.').green)
     })
 
 program

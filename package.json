@@ -1,11 +1,11 @@
 {
   "name": "golumbus",
-  "version": "0.1.0",
-  "description": "Golumbus is a CLI helping you to remember important locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
+  "version": "0.1.1",
+  "description": "Golumbus is a CLI helping you to remember locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/JonasPriest/golumbus.git"
+    "url": "git://github.com/jverhoelen/golumbus.git"
   },
   "scripts": {
     "test": "istanbul test _mocha"
