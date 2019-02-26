@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-cd $(go $1 $2)
+cd $(gol $1 $2)

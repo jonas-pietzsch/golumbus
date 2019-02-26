@@ -1,3 +1,3 @@
 function goto() {
-    cd $(go "$1" "$2")
+    cd $(gol "$1" "$2")
 }
