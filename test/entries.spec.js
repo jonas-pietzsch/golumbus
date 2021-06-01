@@ -1,6 +1,6 @@
 const chai = require('chai')
 const { expect, assert } = chai
-const Entries = require('./../lib/entries')
+const Entries = require('../lib/entries')
 
 const entries = new Entries()
 

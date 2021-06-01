@@ -1,7 +1,7 @@
 const chai = require('chai')
 const { expect, assert } = chai
 const should = chai.should()
-const config = require('./../lib/config')
+const config = require('../lib/config')
 
 const executeLoading = () => config.load(process.cwd() + '/golumbusTest.json')
 

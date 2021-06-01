@@ -1,6 +1,6 @@
 const chai = require('chai')
 const { assert } = chai
-const utils = require('./../lib/utils')
+const utils = require('../lib/utils')
 
 // http://stackoverflow.com/a/2450976/5500928
 const shuffle = (array) => {
