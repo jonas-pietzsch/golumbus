@@ -4,8 +4,6 @@ It's a command line utility to bookmark locations on your computer.
 You can navigate to, add, list, get and remove bookmarked locations.
 So, make Golumbus your smart navigator on the wild seas of your computers directory!
 
-![Golumbus demo](https://i.imgsafe.org/ba9acd5.gif)
-
 ## Install it
 
 Golumbus is usable through the `gol` command. The command `goto` should be used to hop to locations and need to be installed seperately. Just install it using `npm install -g golumbus`.
