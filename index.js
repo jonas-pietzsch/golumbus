@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const co = require('co')
 const prompt = require('co-prompt')
 const columnify = require('columnify')
