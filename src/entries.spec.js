@@ -1,4 +1,4 @@
-const Entries = require('../lib/entries')
+const Entries = require('.//entries')
 
 const entries = new Entries()
 

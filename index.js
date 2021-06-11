@@ -4,9 +4,9 @@ const columnify = require('columnify')
 const program = require('commander')
 const chalk = require('chalk')
 
-const utils = require('./lib/utils')
-const Entries = require('./lib/entries')
-const installer = require('./lib/installer')
+const utils = require('./src/utils')
+const Entries = require('./src/entries')
+const installer = require('./src/installer')
 
 const entries = new Entries()
 entries.loadFrom(utils.getConfigFilePath())

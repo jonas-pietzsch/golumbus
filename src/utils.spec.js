@@ -1,4 +1,4 @@
-const utils = require('../lib/utils')
+const utils = require('.//utils')
 
 // http://stackoverflow.com/a/2450976/5500928
 const shuffle = (array) => {
