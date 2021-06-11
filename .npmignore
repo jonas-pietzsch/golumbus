@@ -1,0 +1,5 @@
+.nvmrc
+.prettierrc.json
+**/*.spec.js
+.idea
+*.iml
