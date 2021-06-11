@@ -1,41 +1,31 @@
 const jsonfile = require('jsonfile')
-let config
-let configFile
-
-const configFilePath = `~/.config/golumbus.json`
+const { getUserHome } = require('./system')
 
 class Config {
     constructor() {
-        this.config = jsonfile.readFileSync(configFilePath)
+        this.configFilePath = `${getUserHome()}/.config/golumbus.json`
+        try {
+            this.data = jsonfile.readFileSync(this.configFilePath)
+        } catch (error) {
+            this.data = { entries: {} }
+            this.save()
+        }
     }
 
-    getEntries() {
-        return this.config.entries
+    getContents() {
+        return this.data
     }
 
-    getEntry(name) {
-        return this.getEntries()[name]
+    setContents(config) {
+        this.data = config
+        this.save()
     }
 
     save() {
-        jsonfile.writeFileSync(configFilePath, this.config, { spaces: 2 })
+        jsonfile.writeFileSync(this.configFilePath, this.getContents(), {
+            spaces: 4,
+        })
     }
 }
 
-module.exports = {
-    Config,
-
-    get: () => {
-        return config
-    },
-
-    load: (file) => {
-        configFile = file
-        config = jsonfile.readFileSync(configFile)
-        return config
-    },
-
-    save: () => {
-        jsonfile.writeFileSync(configFile, config, {spaces: 2})
-    }
-}
+module.exports = { Config }

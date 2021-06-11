@@ -10,7 +10,7 @@ So, make Golumbus your smart navigator on the wild seas of your computers direct
 
 Golumbus is usable through the `gol` command. The command `goto` should be used to hop to locations and need to be installed seperately. Just install it using `npm install -g golumbus`.
 
-*Before first usage, execute `gol install` to install the `goto` command for the shell you are using.* Currently Fish and Zsh are supported for auto installation. Bash can be installed manually. For more information, [have a look at the Wiki](https://github.com/jverhoelen/golumbus/wiki/Install-the-goto-command).
+_Before first usage, execute `gol install` to install the `goto` command for the shell you are using._ Currently Fish and Zsh are supported for auto installation. Bash can be installed manually. For more information, [have a look at the Wiki](https://github.com/jverhoelen/golumbus/wiki/Install-the-goto-command).
 
 ## Use it
 

@@ -1,94 +1,104 @@
 const fs = require('fs')
-const config = require('./config')
-const utils = require('./utils')
+const { Config } = require('./config')
 const fuzzy = require('fuzzy.js')
 
 class Entries {
-    constructor() {
-        this.entries = []
+    constructor(deps = {}) {
+        this.config = deps.config || new Config()
     }
 
-    loadFrom(file) {
-        this.entries = config.load(file).entries
-        return this.entries
-    }
-
-    all() {
-        return this.entries
+    getAll() {
+        return this.config.getContents().entries
     }
 
     count() {
-        let count = this.entries.length
-        return count ? count : 0
+        return Object.values(this.getAll()).length || 0
     }
 
     search(query) {
-        const result = []
+        const results = []
 
-        for (const name in this.all()) {
-            let entry = this.get(name)
-            let match = fuzzy(query ? query : '', name)
-            let isFuzzyMatch = match.score > 0
-            let containsName = utils.stringContains(name, query)
-            let containsDesc = utils.stringContains(entry.desc, query)
+        for (const name in this.getAll()) {
+            const entry = this.get(name)
+            const containsName = name.includes(query)
+            const containsDesc = entry.desc.includes(query)
+            const isFuzzyMatch = fuzzy(query || '', name).score > 0
 
-            if (!query || (containsName || containsDesc || isFuzzyMatch)) {
-                result.push(utils.getTransformedEntry(name, entry))
+            if (!query || containsName || containsDesc || isFuzzyMatch) {
+                results.push({ ...entry, name })
             }
         }
 
-        result.sort(utils.sorter)
-        return result
+        results.sort((entryA, entryB) => entryB.usages - entryA.usages)
+        return results
     }
 
-    add(name, entry) {
-        this.entries[name] = entry
-        this.save()
+    add(name, { description: desc, path }) {
+        const contents = this.config.getContents()
+        contents.entries[name] = { desc, path, usages: 0 }
+        this.config.setContents(contents)
     }
 
     resetUsages() {
-        let totalAccesses = 0
+        const contents = this.config.getContents()
 
-        for (let name in this.entries) {
-            let entry = this.entries[name]
-            totalAccesses += entry.usages
+        let totalUsagesReset = 0
+        Object.values(contents.entries).forEach(entry => {
+            totalUsagesReset += entry.usages
             entry.usages = 0
-        }
+        })
+        this.config.setContents(contents)
 
-        this.save()
-        return totalAccesses
+        return totalUsagesReset
     }
 
-    purgeNotExisting() {
-        const entriesToDelete = Object.keys(this.entries)
-            .map(entryName => ({ name: entryName, path: this.entries[entryName].path }))
+    deleteNonExistingPaths() {
+        const contents = this.config.getContents()
+        const entriesToDelete = Object.keys(contents.entries)
+            .map(name => ({
+                name,
+                path: contents.entries[name].path,
+            }))
             .filter(entry => !fs.existsSync(entry.path))
-        entriesToDelete.forEach(entry => this.remove(entry.name))
+
+        if (entriesToDelete.length) {
+            for (const entry of entriesToDelete) {
+                delete contents.entries[entry.name]
+            }
+
+            this.config.setContents(contents)
+        }
 
         return entriesToDelete.length
     }
 
-    edit(name, newDescription) {
-        this.get(name).desc = newDescription
-        this.save()
+    edit(name, description) {
+        const contents = this.config.getContents()
+        contents.entries[name].desc = description
+        this.config.setContents(contents)
     }
 
-    remove(name) {
-        delete this.entries[name]
-        this.save()
+    increaseUsage(name) {
+        const contents = this.config.getContents()
+        contents.entries[name].usages++
+        this.config.setContents(contents)
+    }
+
+    delete(name) {
+        const contents = this.config.getContents()
+        if (contents.entries[name]) {
+            delete contents.entries[name]
+            this.config.setContents(contents)
+        }
     }
 
     get(name) {
-        return this.all()[name]
+        return this.getAll()[name]
     }
 
     isKnown(name) {
         return this.get(name) != undefined
     }
-
-    save() {
-        config.save()
-    }
 }
 
-module.exports = Entries
+module.exports = { Entries }

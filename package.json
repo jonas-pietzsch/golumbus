@@ -1,41 +1,43 @@
 {
-  "name": "golumbus",
-  "version": "0.1.2",
-  "description": "Golumbus is a CLI helping you to remember locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jverhoelen/golumbus.git"
-  },
-  "scripts": {
-    "test": "npm run test:unit",
-    "test:unit": "jest"
-  },
-  "keywords": [
-    "goto",
-    "golumbus",
-    "save",
-    "locations",
-    "paths",
-    "directories"
-  ],
-  "author": "Jonas Verhoelen",
-  "license": "MIT",
-  "bin": {
-    "gol": "./index.js"
-  },
-  "dependencies": {
-    "chalk": "^4.1.1",
-    "co": "^4.6.0",
-    "co-prompt": "^1.0.0",
-    "columnify": "^1.5.4",
-    "commander": "^7.2.0",
-    "fs-extended": "^0.2.1",
-    "fs-extra": "^10.0.0",
-    "fuzzy.js": "^0.1.0",
-    "jsonfile": "^6.1.0"
-  },
-  "devDependencies": {
-    "jest": "^27.0.3"
-  }
+    "name": "golumbus",
+    "version": "1.0.0",
+    "description": "Golumbus is a CLI helping you to remember locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jverhoelen/golumbus.git"
+    },
+    "scripts": {
+        "test": "npm run test:unit",
+        "test:unit": "jest",
+        "format": "prettier --write ."
+    },
+    "keywords": [
+        "goto",
+        "golumbus",
+        "save",
+        "locations",
+        "paths",
+        "directories"
+    ],
+    "author": "Jonas Verhoelen",
+    "license": "MIT",
+    "bin": {
+        "gol": "./index.js"
+    },
+    "dependencies": {
+        "chalk": "^4.1.1",
+        "co": "^4.6.0",
+        "co-prompt": "^1.0.0",
+        "columnify": "^1.5.4",
+        "commander": "^7.2.0",
+        "fs-extended": "^0.2.1",
+        "fs-extra": "^10.0.0",
+        "fuzzy.js": "^0.1.0",
+        "jsonfile": "^6.1.0"
+    },
+    "devDependencies": {
+        "jest": "^27.0.3",
+        "prettier": "2.3.1"
+    }
 }
