@@ -43,8 +43,7 @@ program
         if (entries.isKnown(name)) {
             const entry = entries.get(name)
             console.log(manipulatePath(entry.path, manipulator))
-            entry.usages++
-            entries.save()
+            entries.increaseUsage(name)
         } else {
             console.log(process.cwd())
         }
@@ -158,17 +157,13 @@ program
                 }
             }
 
-            const desc = yield prompt('Description: ')
-            const newLocation = {
-                path: process.cwd(),
-                desc,
-                usages: 0,
-            }
+            const description = yield prompt('Description: ')
+            const path = process.cwd()
 
-            entries.add(name, newLocation)
+            entries.add(name, { description, path })
             console.log(
                 chalk.green(
-                    `Current path (${newLocation.path}) is now known under the name '${name}'.\nDescription: ${desc}`,
+                    `Current path (${path}) is now known under the name '${name}'.\nDescription: ${description}`,
                 ),
             )
             process.exit(0)
