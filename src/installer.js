@@ -2,9 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const { detectShell, getUserHome } = require('./system')
 
-const zshrcFilename = '/.zshrc'
-const fishGotoFunctionFilename = '/.config/fish/functions/goto.fish'
-
 const fsOptions = { encoding: 'utf8' }
 const appendToFile = (path, content) =>
     fs.appendFileSync(path, content, fsOptions)
@@ -13,6 +10,7 @@ const writeToFile = (path, content) =>
 const getFileContents = path => fs.readFileSync(path).toString()
 
 const installForZsh = () => {
+    const zshrcFilename = '/.zshrc'
     const zshGotoPath = path.join(__dirname, '..', 'goto.zsh')
     appendToFile(
         getUserHome() + zshrcFilename,
@@ -23,10 +21,16 @@ const installForZsh = () => {
 }
 
 const installForFish = () => {
-    const fishGotoPath = path.join(__dirname, '..', 'goto.fish')
+    const fishGotoFunctionFilename = '/.config/fish/functions/goto.fish'
+    const fishGotoFunctionPath = getUserHome() + fishGotoFunctionFilename
+
+    if (fs.existsSync(fishGotoFunctionPath)) {
+        return `Fish function file ${fishGotoFunctionFilename} already in place. 'goto' command should be present in your Fish shell.`
+    }
+
     writeToFile(
-        getUserHome() + fishGotoFunctionFilename,
-        getFileContents(fishGotoPath),
+        fishGotoFunctionPath,
+        getFileContents(path.join(__dirname, '..', 'goto.fish')),
     )
 
     return `Created the Fish function file ~${fishGotoFunctionFilename}. Open a new terminal to use the 'goto' command.`

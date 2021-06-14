@@ -12,10 +12,26 @@ describe('installer', () => {
     })
 
     describe('installForFish', () => {
-        it('should write fish script to file', () => {
-            installForFish()
+        it('should write fish script to file if not existing yet', () => {
+            fs.existsSync.mockReturnValue(false)
+
+            const result = installForFish()
 
             expect(fs.writeFileSync).toHaveBeenCalledTimes(1)
+            expect(result).toEqual(
+                "Created the Fish function file ~/.config/fish/functions/goto.fish. Open a new terminal to use the 'goto' command.",
+            )
+        })
+
+        it('should not write fish script if already existing', () => {
+            fs.existsSync.mockReturnValue(true)
+
+            const result = installForFish()
+
+            expect(fs.writeFileSync).not.toHaveBeenCalled()
+            expect(result).toEqual(
+                "Fish function file /.config/fish/functions/goto.fish already in place. 'goto' command should be present in your Fish shell.",
+            )
         })
     })
 
