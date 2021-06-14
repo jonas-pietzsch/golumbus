@@ -41,6 +41,20 @@ describe('installer', () => {
 
             expect(fs.appendFileSync).toHaveBeenCalledTimes(1)
         })
+
+        it('should not append zsh function to file if function already present there', () => {
+            fs.readFileSync = jest.fn().mockImplementation(fileName => {
+                if (fileName === '/Users/someUser/.zshrc') {
+                    return 'function goto() {\ncd $(gol "$1" "$2")\n}\n'
+                } else {
+                    return 'zsh script'
+                }
+            })
+
+            installForZsh()
+
+            expect(fs.appendFileSync).not.toHaveBeenCalled()
+        })
     })
 
     describe('installGoto', () => {

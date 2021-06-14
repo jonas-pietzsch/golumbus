@@ -11,10 +11,15 @@ const getFileContents = path => fs.readFileSync(path).toString()
 
 const installForZsh = () => {
     const zshrcFilename = '/.zshrc'
-    const zshGotoPath = path.join(__dirname, '..', 'goto.zsh')
+    const zshrcPath = getUserHome() + zshrcFilename
+
+    if ((getFileContents(zshrcPath) || '').includes('function goto')) {
+        return `Zsh command 'goto' is already installed in your ~${zshrcFilename} configuration. 'goto' should be available in your Zsh shell.`
+    }
+
     appendToFile(
-        getUserHome() + zshrcFilename,
-        `\n${getFileContents(zshGotoPath)}`,
+        zshrcPath,
+        `\n${getFileContents(path.join(__dirname, '..', 'goto.zsh'))}`,
     )
 
     return `Installed the Zsh command into your ~${zshrcFilename} configuration. Open a new terminal to use the 'goto' command.`
