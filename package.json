@@ -1,6 +1,6 @@
 {
     "name": "golumbus",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Golumbus is a CLI helping you to remember locations on your machine. Save important paths, such as commonly touched projects, under a short name and visit them quickly from anywhere.",
     "main": "index.js",
     "repository": {
