@@ -2,6 +2,8 @@
 
 Golumbus lets you bookmark directories and jump to them quickly on your terminal.
 
+[![asciicast](https://asciinema.org/a/MWH9EncVu9X6K2twnsa7mf6JN.png)](https://asciinema.org/a/MWH9EncVu9X6K2twnsa7mf6JN?speed=1.5&t=05)
+
 ## Installation
 
 1. `npm install -g golumbus` (installs the `gol` command)
