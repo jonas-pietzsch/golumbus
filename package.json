@@ -1,6 +1,6 @@
 {
     "name": "golumbus",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Golumbus lets you bookmark directories and jump to them quickly on your terminal.",
     "main": "index.js",
     "repository": {
