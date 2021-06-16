@@ -6,6 +6,8 @@ Golumbus lets you bookmark directories and jump to them quickly on your terminal
 
 ## Installation
 
+You need to have Node.js >= 12 installed which includes NPM.
+
 1. `npm install -g golumbus` (installs the `gol` command)
 2. Run `gol install` to install the `goto` command in your shell (Bash, Zsh, Fish)
 
