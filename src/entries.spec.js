@@ -64,29 +64,6 @@ describe('Entries', () => {
         })
     })
 
-    describe('increaseUsage', () => {
-        it('should increase usage of entry by one', () => {
-            config.getContents.mockReturnValue({
-                entries: {
-                    test: { desc: 'someDesc', path: 'somePath', usages: 3 },
-                    other: { desc: 'someDesc', path: 'otherPath', usages: 2 },
-                },
-            })
-
-            entries.increaseUsage('test')
-            expect(config.setContents).toHaveBeenCalledWith({
-                entries: {
-                    other: {
-                        desc: 'someDesc',
-                        path: 'otherPath',
-                        usages: 2,
-                    },
-                    test: { desc: 'someDesc', path: 'somePath', usages: 4 },
-                },
-            })
-        })
-    })
-
     describe('edit', () => {
         it('should edit description of entry', () => {
             config.getContents.mockReturnValue({
@@ -259,6 +236,44 @@ describe('Entries', () => {
             })
 
             expect(entries.get('test')).toBeUndefined()
+        })
+    })
+
+    describe('getPath', () => {
+        it('should return path of found entry', () => {
+            config.getContents.mockReturnValue({
+                entries: {
+                    test: { desc: 'someDesc', path: 'somePath', usages: 3 },
+                    other: { desc: 'someDesc', path: 'otherPath', usages: 2 },
+                },
+            })
+
+            expect(entries.getPath('test')).toEqual('somePath')
+            expect(config.setContents).toHaveBeenCalled()
+        })
+
+        it('should increment usage for found entry', () => {
+            config.getContents.mockReturnValue({
+                entries: {
+                    test: { desc: 'someDesc', path: 'somePath', usages: 3 },
+                },
+            })
+
+            expect(entries.getPath('test')).toEqual('somePath')
+            expect(config.setContents).toHaveBeenCalledWith({
+                entries: {
+                    test: { desc: 'someDesc', path: 'somePath', usages: 4 },
+                },
+            })
+        })
+
+        it('should return undefined for entry not existing', () => {
+            config.getContents.mockReturnValue({
+                entries: {},
+            })
+
+            expect(entries.getPath('test')).toBeUndefined()
+            expect(config.setContents).not.toHaveBeenCalled()
         })
     })
 })

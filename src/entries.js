@@ -78,12 +78,6 @@ class Entries {
         this.config.setContents(contents)
     }
 
-    increaseUsage(name) {
-        const contents = this.config.getContents()
-        contents.entries[name].usages++
-        this.config.setContents(contents)
-    }
-
     delete(name) {
         const contents = this.config.getContents()
         if (contents.entries[name]) {
@@ -96,8 +90,22 @@ class Entries {
         return this.getAll()[name]
     }
 
+    getPath(name) {
+        const entry = this.get(name)
+        if (entry) {
+            this.#increaseUsage(name)
+            return entry.path
+        }
+    }
+
     isKnown(name) {
         return this.get(name) != undefined
+    }
+
+    #increaseUsage(name) {
+        const contents = this.config.getContents()
+        contents.entries[name].usages++
+        this.config.setContents(contents)
     }
 }
 
