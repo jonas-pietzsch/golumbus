@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { execSync } = require('child_process')
 const { detectShell, getUserHome } = require('./system')
 
 const fsOptions = { encoding: 'utf8' }
@@ -9,7 +10,7 @@ const writeToFile = (path, content) =>
     fs.writeFileSync(path, content, fsOptions)
 const getFileContents = path => fs.readFileSync(path).toString()
 
-const installForZsh = () => {
+const installForZsh = async () => {
     const zshrcFilename = '/.zshrc'
     const zshrcPath = getUserHome() + zshrcFilename
 
@@ -17,15 +18,12 @@ const installForZsh = () => {
         return `Zsh command 'goto' is already installed in your ~${zshrcFilename} configuration. 'goto' should be available in your Zsh shell.`
     }
 
-    appendToFile(
-        zshrcPath,
-        `\n${getFileContents(path.join(__dirname, '..', 'goto.zsh'))}`,
-    )
+    appendToFile(zshrcPath, `\n${await generateGotoScript('goto.zsh')}`)
 
     return `Installed the Zsh command into your ~${zshrcFilename} configuration. Open a new terminal to use the 'goto' command.`
 }
 
-const installForFish = () => {
+const installForFish = async () => {
     const fishGotoFunctionFilename = '/.config/fish/functions/goto.fish'
     const fishGotoFunctionPath = getUserHome() + fishGotoFunctionFilename
 
@@ -33,15 +31,25 @@ const installForFish = () => {
         return `Fish function file ${fishGotoFunctionFilename} already in place. 'goto' command should be present in your Fish shell.`
     }
 
-    writeToFile(
-        fishGotoFunctionPath,
-        getFileContents(path.join(__dirname, '..', 'goto.fish')),
-    )
+    writeToFile(fishGotoFunctionPath, await generateGotoScript('goto.fish'))
 
     return `Created the Fish function file ~${fishGotoFunctionFilename}. Open a new terminal to use the 'goto' command.`
 }
 
-const installGoto = shellName => {
+const generateGotoScript = async scriptName => {
+    return getFileContents(path.join(__dirname, '..', scriptName)).replace(
+        'gol',
+        await resolveGolumbusBinaryFullPath(),
+    )
+}
+
+const resolveGolumbusBinaryFullPath = async () => {
+    return execSync('which gol')
+        .toString()
+        .replace(/(\r\n|\n|\r)/gm, '')
+}
+
+const installGoto = async shellName => {
     const guessedShellName = shellName || detectShell()
     const issueLink = 'https://github.com/jverhoelen/golumbus'
 
@@ -56,7 +64,7 @@ const installGoto = shellName => {
             return (
                 `If you're primarily using bash, please install the following command ` +
                 `your own way.\nGolumbus does not want to decide how to handle your bash setup.\n\n` +
-                getFileContents(path.join(__dirname, '..', 'goto.sh')) +
+                (await generateGotoScript('goto.sh')) +
                 `\nNo idea how to start? Some help: http://www.integralist.co.uk/posts/bash-cli.html`
             )
 
@@ -69,4 +77,5 @@ module.exports = {
     installGoto,
     installForZsh,
     installForFish,
+    resolveGolumbusBinaryFullPath,
 }

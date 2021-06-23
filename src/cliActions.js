@@ -9,8 +9,8 @@ const { manipulatePath } = require('./utils')
 
 const entries = new Entries()
 
-const install = shell => {
-    console.log(chalk.green(installGoto(shell)))
+const install = async shell => {
+    console.log(chalk.green(await installGoto(shell)))
 }
 
 const getPath = (name, manipulator) => {
