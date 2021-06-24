@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const { isWindows } = require('./system')
 const { execSync } = require('child_process')
 const { detectShell, getUserHome } = require('./system')
 
@@ -44,7 +45,9 @@ const generateGotoScript = async scriptName => {
 }
 
 const resolveGolumbusBinaryFullPath = async () => {
-    return execSync('which gol')
+    const whichCommand = isWindows() ? 'where' : 'which'
+
+    return execSync(`${whichCommand} gol`)
         .toString()
         .replace(/(\r\n|\n|\r)/gm, '')
 }
@@ -78,4 +81,5 @@ module.exports = {
     installForZsh,
     installForFish,
     resolveGolumbusBinaryFullPath,
+    generateGotoScript,
 }
