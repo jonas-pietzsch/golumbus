@@ -93,7 +93,7 @@ class Entries {
     getPath(name) {
         const entry = this.get(name)
         if (entry) {
-            this.#increaseUsage(name)
+            this._increaseUsage(name)
             return entry.path
         }
     }
@@ -102,7 +102,7 @@ class Entries {
         return this.get(name) != undefined
     }
 
-    #increaseUsage(name) {
+    _increaseUsage(name) {
         const contents = this.config.getContents()
         contents.entries[name].usages++
         this.config.setContents(contents)
