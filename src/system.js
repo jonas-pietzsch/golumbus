@@ -1,6 +1,7 @@
+const isWindows = () => process.platform === 'win32'
+
 const getUserHome = () => {
-    const isWindows = process.platform === 'win32'
-    return process.env[isWindows ? 'USERPROFILE' : 'HOME']
+    return process.env[isWindows() ? 'USERPROFILE' : 'HOME']
 }
 
 const detectShell = () => {
@@ -14,4 +15,5 @@ const detectShell = () => {
 module.exports = {
     detectShell,
     getUserHome,
+    isWindows,
 }
